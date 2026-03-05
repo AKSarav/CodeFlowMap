@@ -2,8 +2,6 @@
 
 > A VS Code Custom Agent that reads your codebase like a Senior Staff Engineer and maps it into detailed C4-style Mermaid diagrams — at both component and class level.
 
----
-
 ## What is CodeFlowMap?
 
 CodeFlowMap is a **VS Code Custom Agent** powered by GitHub Copilot that analyzes any codebase and automatically generates two levels of architectural diagrams in [Mermaid](https://mermaid.js.org/) syntax:
@@ -13,7 +11,6 @@ CodeFlowMap is a **VS Code Custom Agent** powered by GitHub Copilot that analyze
 
 No manual diagramming. No outdated architecture docs. Just point CodeFlowMap at your codebase and get a clear, navigable map — instantly.
 
----
 
 ## Why CodeFlowMap?
 
