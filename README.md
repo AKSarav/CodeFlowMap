@@ -21,7 +21,6 @@ Every team has that moment:
 
 CodeFlowMap solves this by treating your code as the single source of truth and producing diagrams that actually reflect what's in the repo — not what someone *thought* was there six months ago.
 
----
 
 ## Features
 
@@ -34,7 +33,6 @@ CodeFlowMap solves this by treating your code as the single source of truth and 
 - **Architectural notes** — includes a Staff Engineer-level observations section after every diagram generation
 - **Language agnostic** — works with any language or framework supported by VS Code's workspace indexing
 
----
 
 ## Installation
 
@@ -71,7 +69,6 @@ CodeFlowMap solves this by treating your code as the single source of truth and 
 
 3. **Reload VS Code** (or run `Developer: Reload Window` from the Command Palette)
 
----
 
 ## Usage
 
@@ -106,7 +103,6 @@ CodeFlowMap solves this by treating your code as the single source of truth and 
    - A `.mmd` file with the [Mermaid VS Code extension](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
    - Any Markdown file with Mermaid rendering (GitHub, Notion, Confluence, etc.)
 
----
 
 ## Example Output
 
@@ -181,7 +177,6 @@ classDiagram
   OrderService *-- Order : creates
 ```
 
----
 
 ## Example Prompts
 
@@ -194,7 +189,6 @@ classDiagram
 | Expand a diagram | `Add the event flow for order processing to the component diagram` |
 | Large monorepo | `Generate diagrams for the auth-service package only` |
 
----
 
 ## How It Works
 
@@ -207,7 +201,6 @@ CodeFlowMap follows a 4-step analysis protocol internally:
 
 It then produces both diagrams in a single pass with a structured output that's immediately pasteable into any Mermaid renderer.
 
----
 
 ## Tested and Works Best With
 
@@ -218,7 +211,6 @@ It then produces both diagrams in a single pass with a structured output that's 
 - .NET / C# applications
 - Any well-structured project with clear module boundaries
 
----
 
 ## Contributing
 
