@@ -1,9 +1,12 @@
-# CodeFlowMap
+<p align="center">
+  <img src="images/Logo.png" width="300" />
+</p>
 
-> A VS Code Custom Agent that reads your codebase like a Senior Staff Engineer and maps it into detailed C4-style Mermaid diagrams — at both component and class level.
+A VS Code Custom Agent that reads your codebase like a Senior Staff Engineer and maps it into detailed C4-style Mermaid diagrams — at both component and class level.
 
-![alttext](pdfstract_workflow.png)
-
+<p>
+<img src="images/pdfstract_workflow.png" height="200", width="400">
+</p>
 
 ## What is CodeFlowMap?
 
