@@ -5,7 +5,7 @@
 A VS Code Custom Agent that reads your codebase like a Senior Staff Engineer and maps it into detailed C4-style Mermaid diagrams — at both component and class level.
 
 <p>
-<img src="images/pdfstract_workflow.png" height="200", width="400">
+<img src="images/pdfstract_workflow.png" height="400", width="100%">
 </p>
 
 ## What is CodeFlowMap?
