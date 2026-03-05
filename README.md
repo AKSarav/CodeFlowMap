@@ -4,9 +4,71 @@
 
 A VS Code Custom Agent that reads your codebase like a Senior Staff Engineer and maps it into detailed C4-style Mermaid diagrams — at both component and class level.
 
-<p>
-<img src="images/pdfstract_workflow.png" height="400", width="100%">
-</p>
+Here are some samples created by this agent
+
+```mermaid
+graph TD
+  subgraph API Layer
+    A[AuthMiddleware]
+    B[OrderController]
+    C[UserController]
+  end
+  subgraph Business Logic
+    D[OrderService]
+    E[PaymentService]
+    F[UserService]
+  end
+  subgraph Data Layer
+    G[OrderRepository]
+    H[UserRepository]
+  end
+  subgraph External Systems
+    I[(PostgreSQL)]
+    J[Stripe API]
+    K[JWT Provider]
+  end
+
+  B -->|"validates token"| A
+  A -->|"authenticates via"| K
+  B -->|"delegates to"| D
+  D -->|"charges via"| E
+  D -->|"persists via"| G
+  E -->|"HTTP REST"| J
+  G -->|"SQL"| I
+  H -->|"SQL"| I
+```
+
+
+```mermaid
+classDiagram
+  class OrderService {
+    <<Service>>
+    -orderRepo: OrderRepository
+    -paymentService: IPaymentService
+    +createOrder(userId: string, items: Item[]) Order
+    +cancelOrder(orderId: string) void
+  }
+  class IPaymentService {
+    <<Interface>>
+    +charge(amount: number, token: string) PaymentResult
+    +refund(transactionId: string) void
+  }
+  class StripePaymentService {
+    -client: StripeClient
+    +charge(amount: number, token: string) PaymentResult
+    +refund(transactionId: string) void
+  }
+  class Order {
+    +id: string
+    +userId: string
+    +status: OrderStatus
+    +totalAmount: number
+  }
+
+  OrderService --> IPaymentService : depends on
+  IPaymentService <|.. StripePaymentService : implements
+  OrderService *-- Order : creates
+```
 
 ## What is CodeFlowMap?
 
@@ -109,79 +171,13 @@ CodeFlowMap solves this by treating your code as the single source of truth and 
    - A `.mmd` file with the [Mermaid VS Code extension](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
    - Any Markdown file with Mermaid rendering (GitHub, Notion, Confluence, etc.)
 
-
-## Example Output
-
 ### Codebase Summary
 
 > A Node.js REST API using a layered architecture (Controller → Service → Repository). Built with Express and TypeScript, backed by PostgreSQL via TypeORM. Payment processing delegated to Stripe. Authentication handled via JWT middleware.
 
 ### Component Diagram
 
-```mermaid
-graph TD
-  subgraph API Layer
-    A[AuthMiddleware]
-    B[OrderController]
-    C[UserController]
-  end
-  subgraph Business Logic
-    D[OrderService]
-    E[PaymentService]
-    F[UserService]
-  end
-  subgraph Data Layer
-    G[OrderRepository]
-    H[UserRepository]
-  end
-  subgraph External Systems
-    I[(PostgreSQL)]
-    J[Stripe API]
-    K[JWT Provider]
-  end
 
-  B -->|"validates token"| A
-  A -->|"authenticates via"| K
-  B -->|"delegates to"| D
-  D -->|"charges via"| E
-  D -->|"persists via"| G
-  E -->|"HTTP REST"| J
-  G -->|"SQL"| I
-  H -->|"SQL"| I
-```
-
-### Class Diagram
-
-```mermaid
-classDiagram
-  class OrderService {
-    <<Service>>
-    -orderRepo: OrderRepository
-    -paymentService: IPaymentService
-    +createOrder(userId: string, items: Item[]) Order
-    +cancelOrder(orderId: string) void
-  }
-  class IPaymentService {
-    <<Interface>>
-    +charge(amount: number, token: string) PaymentResult
-    +refund(transactionId: string) void
-  }
-  class StripePaymentService {
-    -client: StripeClient
-    +charge(amount: number, token: string) PaymentResult
-    +refund(transactionId: string) void
-  }
-  class Order {
-    +id: string
-    +userId: string
-    +status: OrderStatus
-    +totalAmount: number
-  }
-
-  OrderService --> IPaymentService : depends on
-  IPaymentService <|.. StripePaymentService : implements
-  OrderService *-- Order : creates
-```
 
 
 ## Example Prompts
