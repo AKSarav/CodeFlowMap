@@ -2,11 +2,9 @@
   <img src="images/Logo.png" width="300" />
 </p>
 
-CodeFlowMap reads any codebase like a Senior Staff Engineer and maps it into detailed **C4-style Mermaid diagrams** — at both component and class level. It is available in two flavours depending on your workflow.
+CodeFlowMap is an Agentic Codebase walk through Agent - Parse through the large codebase and create C4 Architecture diagrams based on the Source grounded information - though backed by AI.  The system is designed with Treesitter and powerful parsing mechanisms and guardrails to keep the outcomes legit and truthful.
 
----
-
-## Implementations
+We have two modes of implementation right now.
 
 ### VS Code Custom Agent
 
@@ -14,7 +12,6 @@ A VS Code Custom Agent that integrates directly into your editor. Point it at yo
 
 → [Read the VS Code README](./vscode/README.md)
 
----
 
 ### DeepAgent CLI Tool
 
@@ -22,11 +19,71 @@ A CLI deep-agent that runs an autonomous multi-step analysis loop using [LangCha
 
 → [Read the DeepAgent README](./deepagent/README.md)
 
----
 
-## What both produce
+### Samples
 
-- **Component Diagram** (C4 Level 3) — major runtime components, external systems, and labelled communication edges
-- **Class Diagram** (C4 Level 4) — classes, interfaces, inheritance, composition, and design patterns
 
-Both render as Mermaid diagrams inside Markdown, viewable directly in GitHub or any Mermaid-compatible renderer.
+```mermaid
+graph TD
+  subgraph API Layer
+    A[AuthMiddleware]
+    B[OrderController]
+    C[UserController]
+  end
+  subgraph Business Logic
+    D[OrderService]
+    E[PaymentService]
+    F[UserService]
+  end
+  subgraph Data Layer
+    G[OrderRepository]
+    H[UserRepository]
+  end
+  subgraph External Systems
+    I[(PostgreSQL)]
+    J[Stripe API]
+    K[JWT Provider]
+  end
+
+  B -->|"validates token"| A
+  A -->|"authenticates via"| K
+  B -->|"delegates to"| D
+  D -->|"charges via"| E
+  D -->|"persists via"| G
+  E -->|"HTTP REST"| J
+  G -->|"SQL"| I
+  H -->|"SQL"| I
+```
+
+
+```mermaid
+classDiagram
+  class OrderService {
+    <<Service>>
+    -orderRepo: OrderRepository
+    -paymentService: IPaymentService
+    +createOrder(userId: string, items: Item[]) Order
+    +cancelOrder(orderId: string) void
+  }
+  class IPaymentService {
+    <<Interface>>
+    +charge(amount: number, token: string) PaymentResult
+    +refund(transactionId: string) void
+  }
+  class StripePaymentService {
+    -client: StripeClient
+    +charge(amount: number, token: string) PaymentResult
+    +refund(transactionId: string) void
+  }
+  class Order {
+    +id: string
+    +userId: string
+    +status: OrderStatus
+    +totalAmount: number
+  }
+
+  OrderService --> IPaymentService : depends on
+  IPaymentService <|.. StripePaymentService : implements
+  OrderService *-- Order : creates
+```
+
