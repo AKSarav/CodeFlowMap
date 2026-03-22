@@ -1,0 +1,24 @@
+# CodeFlowMap — Dependencies
+# Install: pip install -r requirements.txt
+
+# ── Core ────────────────────────────────────────────────────────────
+langchain
+langchain-openai
+deepagents
+python-dotenv
+rich
+langgraph
+
+# ── Tree-sitter (structural parsing engine) ─────────────────────────
+tree-sitter
+
+# ── Language grammars (install for languages you want to analyze) ───
+# At minimum, install grammars for the languages in your target codebase.
+tree-sitter-python
+tree-sitter-typescript
+tree-sitter-javascript
+tree-sitter-java
+tree-sitter-go
+tree-sitter-c-sharp
+tree-sitter-ruby
+tree-sitter-rust
